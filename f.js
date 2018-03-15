@@ -13,9 +13,7 @@ function idler() {
         if (parseInt($('gn-modal-view > div > div > div > div > div > div > div.main > div.right > div > div:nth-child(1) > div.stat.status.online > p:nth-child(2)').text().substring(0, 2)) >= 16) {
           clearInterval(scriptStartTimer);
           console.log("Been online for 16 hours or above, halting script for a few hours.");
-          setTimeout(function() {
-            window.location.reload();
-          }, Math.floor(Math.random() * 7200000) + 5400000);
+            $('#container > gn-left > div > div.menu > section:nth-child(9) > button')[0].click();
         } else {
           clearInterval(scriptStartTimer);
           console.log("Been online for less then 16 hours, taking a small break and will continue scripting.");
@@ -299,7 +297,8 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
     if ($('#content > gn-page > div > div > div.page-timer > div > div.countdown').length == 1) {
       console.log("Waiting for buy timer");
       var autoReloadBullets = setTimeout(function() {
-        if ($('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets.highlight').length == 1) {
+        if ($('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets.highlight').length == 1)
+        {
           clearInterval(autoReloadBullets);
           $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
         }
