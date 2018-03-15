@@ -155,6 +155,8 @@ function triggerActionLoop() {
       doAction();
     } else {
       console.log("Current Cycle : " + cycle);
+      console.log("actions " + actions);
+      console.log("stopforBullets " + stopforBullets);
       cycle++;
       actions = howManyTimes() + 5;
     }
