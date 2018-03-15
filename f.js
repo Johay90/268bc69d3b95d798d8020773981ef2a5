@@ -299,9 +299,9 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
       var autoReloadBullets = setTimeout(function() {
         if ($('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets.highlight').length == 1)
         {
-          clearInterval(autoReloadBullets);
           $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
         }
+        clearInterval(autoReloadBullets);
       }, Math.floor(Math.random() * 1000) + 500);
     } else {
       var myMoney = $('#header-stats > a.money.indented > div.inner > table > tbody > tr:nth-child(1) > td:nth-child(2)').attr('title').substring(1);
