@@ -155,11 +155,13 @@ function triggerActionLoop() {
       console.log(actions);
       setTimeout(triggerActionLoop, Math.floor(Math.random() * 7000) + 4000);
       doAction();
-    } else {
+    } else if (cycle == 30) {
       idler();
+      console.log("Calling Idle()");
+      actions = howManyTimes() + 5;
+    } else {
       console.log("Current Cycle : " + cycle);
       cycle++;
-      actions = howManyTimes() + 5;
     }
   }
 }
