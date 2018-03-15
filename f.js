@@ -149,14 +149,14 @@ function triggerActionLoop() {
     if (cycle == 30) {
       idler();
       console.log("Calling Idle()");
-      actions = howManyTimes() + 5;
-    } else if ((0 < actions) && (cycle != 30) && (stopforBullets == 0)) {
+    } else if ( (0 < actions) && (cycle != 30) && (stopforBullets == 0) ) {
       console.log(actions);
       setTimeout(triggerActionLoop, Math.floor(Math.random() * 7000) + 4000);
       doAction();
     } else {
       console.log("Current Cycle : " + cycle);
       cycle++;
+      actions = howManyTimes() + 5;
     }
   }
 }
