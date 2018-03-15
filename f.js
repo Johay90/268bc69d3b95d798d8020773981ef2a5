@@ -5,17 +5,27 @@ var stopforBullets = 0;
 var buyBullets;
 
 function idler() {
-  if (cycle == 120 || cycle == 240 || cycle == 360) {
-    clearInterval(scriptStartTimer);
+  if (cycle == 30) {
+    console.log("30 Cycles done. Checking how long we've been online.");
     setTimeout(function() {
-      cycle++;
-      scriptStart();
-    }, Math.floor(Math.random() * 1800000) + 900000);
-  } else if (cycle == 500) {
-    clearInterval(scriptStartTimer);
-    setTimeout(function() {
-      window.location.reload();
-    }, Math.floor(Math.random() * 7200000) + 5400000);
+      $('#header-stats > div.character.indented > div.inner > p:nth-child(1) > a')[0].click();
+      setTimeout(function() {
+        if (parseInt($('gn-modal-view > div > div > div > div > div > div > div.main > div.right > div > div:nth-child(1) > div.stat.status.online > p:nth-child(2)').text().substring(0, 2)) >= 16) {
+          clearInterval(scriptStartTimer);
+          console.log("Been online for 16 hours or above, halting script for a few hours.");
+          setTimeout(function() {
+            window.location.reload();
+          }, Math.floor(Math.random() * 7200000) + 5400000);
+        } else {
+          clearInterval(scriptStartTimer);
+          console.log("Been online for less then 16 hours, taking a small break and will continue scripting.");
+          setTimeout(function() {
+            cycle = 0;
+            scriptStart();
+          }, Math.floor(Math.random() * 900000) + 600000);
+        }
+      }, 3000);
+    }, Math.floor(Math.random() * 60000) + 30000);
   }
 }
 
@@ -138,7 +148,7 @@ function triggerActionLoop() {
   if (stopforBullets == 0) {
     bulletCheck();
     actions--;
-    if ((0 < actions) && (cycle != 120 || cycle != 240 || cycle != 360 || cycle != 500)) {
+    if ((0 < actions) && (cycle != 30)) {
       console.log(actions);
       setTimeout(triggerActionLoop, Math.floor(Math.random() * 7000) + 4000);
       doAction();
@@ -202,7 +212,7 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
   setTimeout(function() {
     if ($("#page-chase-attempt").attr('class') != "page-content area-chase disabled") {
       if ($.trim($('#content > gn-page > div > header > h1').text()) == "Police Chase") {
-        setInterval(pickDir, Math.floor(Math.random() * 700) + 400);
+        setInterval(pickDir, Math.floor(Math.random() * 800) + 600);
       }
     }
   }, Math.floor(Math.random() * 1000) + 100);
@@ -212,13 +222,17 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
   setTimeout(function() {
     if ($("#page-bomb-attempt").attr('class') != "page-content area-bomb disabled") {
       if ($.trim($('#content > gn-page > div > header > h1').text()) == "Bomb Defusal") {
-        setInterval(function() {
+        var bombClick = setInterval(function() {
           if (window.location.pathname == "/main/bomb") {
             var whichBomb = Math.floor(Math.random() * 4) + 1;
             if ($("#page-bomb-attempt").attr('class') != "page-content area-bomb disabled") {
               if ($('#page-bomb-attempt > div.bomb > button:nth-child(' + whichBomb + ')').attr("class") != "snipped") {
                 $('#page-bomb-attempt > div.bomb > button:nth-child(' + whichBomb + ')')[0].click();
               }
+            }
+            if ($('#content > gn-page > div > gn-response-bar > p').text() != "") {
+              clearInterval(bombClick);
+              console.log("Cleared bombClick Interval");
             }
           }
         }, Math.floor(Math.random() * 1200) + 820);
@@ -282,7 +296,7 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
       console.log("Refreshing in 20 secs (we have the timer)");
       setTimeout(function() {
         $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-      }, Math.floor(Math.random() * 20000) + 15000);
+      }, Math.floor(Math.random() * 15000) + 5000);
     } else {
       var myMoney = $('#header-stats > a.money.indented > div.inner > table > tbody > tr:nth-child(1) > td:nth-child(2)').attr('title').substring(1);
       myMoney = myMoney.replace(/,/g, "");
@@ -293,14 +307,19 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
         stopforBullets = 1;
         setTimeout(function() {
           $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-        }, Math.floor(Math.random() * 25000) + 20000);
+        }, Math.floor(Math.random() * 25000) + 15000);
       } else if ((check > 50) && (parseInt(myMoney) > 50000)) {
         console.log("Buying bullets & Refreshing.");
         stopforBullets = 1;
         setTimeout(function() {
           $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-        }, Math.floor(Math.random() * 20000) + 15000);
+        }, Math.floor(Math.random() * 30000) + 15000);
         triggerBuyBullets();
+      } else if ((parseInt(time.substring(3, 5)) <= 02) && (parseInt(myMoney) > 50000)) {
+        stopforBullets = 1;
+        etTimeout(function() {
+          $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
+        }, Math.floor(Math.random() * 20000) + 10000);
       } else {
         console.log("Can't buy bullets, either no stock or no money.");
         stopforBullets = 0;
