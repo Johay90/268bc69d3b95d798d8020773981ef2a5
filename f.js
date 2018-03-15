@@ -133,9 +133,6 @@ function bulletCheck() {
   var time = $('#header-stats > div.clock.indented > div > p:nth-child(2)').text();
   if ((parseInt(time.substring(3, 5)) >= 56) && (parseInt(myMoney) > 50000)) {
     stopforBullets = 1;
-    setTimeout(function() {
-      $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-    }, Math.floor(Math.random() * 30000) + 20000);
     $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
   }
 }
@@ -153,7 +150,7 @@ function triggerActionLoop() {
       idler();
       console.log("Calling Idle()");
       actions = howManyTimes() + 5;
-    } else if ((0 < actions) && (cycle != 30)) {
+    } else if ((0 < actions) && (cycle != 30) && (stopforBullets == 0)) {
       console.log(actions);
       setTimeout(triggerActionLoop, Math.floor(Math.random() * 7000) + 4000);
       doAction();
