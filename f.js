@@ -151,14 +151,14 @@ function triggerActionLoop() {
   if (stopforBullets == 0) {
     bulletCheck();
     actions--;
-    if ((0 < actions) && (cycle != 30)) {
-      console.log(actions);
-      setTimeout(triggerActionLoop, Math.floor(Math.random() * 7000) + 4000);
-      doAction();
-    } else if (cycle == 30) {
+    if (cycle == 30) {
       idler();
       console.log("Calling Idle()");
       actions = howManyTimes() + 5;
+    } else if ((0 < actions) && (cycle != 30)) {
+      console.log(actions);
+      setTimeout(triggerActionLoop, Math.floor(Math.random() * 7000) + 4000);
+      doAction();
     } else {
       console.log("Current Cycle : " + cycle);
       cycle++;
@@ -295,13 +295,15 @@ function triggerBuyBullets() {
 }
 
 $(document).on("click", '#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets', function() {
-  console.log("Click event");
   setTimeout(function() {
     if ($('#content > gn-page > div > div > div.page-timer > div > div.countdown').length == 1) {
-      console.log("Refreshing in 20 secs (we have the timer)");
-      setTimeout(function() {
-        $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-      }, Math.floor(Math.random() * 15000) + 5000);
+      console.log("Waiting for buy timer");
+      var autoReloadBullets = setTimeout(function() {
+        if ($('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets.highlight').length == 1) {
+          clearInterval(autoReloadBullets);
+          $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
+        }
+      }, Math.floor(Math.random() * 1000) + 500);
     } else {
       var myMoney = $('#header-stats > a.money.indented > div.inner > table > tbody > tr:nth-child(1) > td:nth-child(2)').attr('title').substring(1);
       myMoney = myMoney.replace(/,/g, "");
@@ -330,5 +332,5 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
         stopforBullets = 0;
       }
     }
-  }, Math.floor(Math.random() * 3000) + 1500);
+  }, Math.floor(Math.random() * 2000) + 700);
 });
