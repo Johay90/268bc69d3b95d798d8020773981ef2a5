@@ -13,7 +13,7 @@ function idler() {
         if (parseInt($('gn-modal-view > div > div > div > div > div > div > div.main > div.right > div > div:nth-child(1) > div.stat.status.online > p:nth-child(2)').text().substring(0, 2)) >= 16) {
           clearInterval(scriptStartTimer);
           console.log("Been online for 16 hours or above, halting script for a few hours.");
-            $('#container > gn-left > div > div.menu > section:nth-child(9) > button')[0].click();
+          $('#container > gn-left > div > div.menu > section:nth-child(9) > button')[0].click();
         } else {
           clearInterval(scriptStartTimer);
           console.log("Been online for less then 16 hours, taking a small break and will continue scripting.");
@@ -228,11 +228,10 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
             if ($("#page-bomb-attempt").attr('class') != "page-content area-bomb disabled") {
               if ($('#page-bomb-attempt > div.bomb > button:nth-child(' + whichBomb + ')').attr("class") != "snipped") {
                 $('#page-bomb-attempt > div.bomb > button:nth-child(' + whichBomb + ')')[0].click();
+                setTimeout(function() {
+                  clearInterval(bombClick);
+                }, Math.floor(Math.random() * 3000) + 25020);
               }
-            }
-            if ($('#content > gn-page > div > gn-response-bar > p').text() != "") {
-              clearInterval(bombClick);
-              console.log("Cleared bombClick Interval");
             }
           }
         }, Math.floor(Math.random() * 1200) + 820);
@@ -294,8 +293,7 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
     if ($('#content > gn-page > div > div > div.page-timer > div > div.countdown').length == 1) {
       console.log("Waiting for buy timer");
       var autoReloadBullets = setTimeout(function() {
-        if ($('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets.highlight').length == 1)
-        {
+        if ($('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets.highlight').length == 1) {
           $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
         }
         clearInterval(autoReloadBullets);
