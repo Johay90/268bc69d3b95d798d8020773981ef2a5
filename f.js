@@ -135,6 +135,9 @@ function bulletCheck() {
   var time = $('#header-stats > div.clock.indented > div > p:nth-child(2)').text();
   if ((parseInt(time.substring(3, 5)) >= 56) && (parseInt(myMoney) > 50000)) {
     stopforBullets = 1;
+    setTimeout(function() {
+      $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
+    }, Math.floor(Math.random() * 30000) + 20000);
     $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
   }
 }
@@ -153,9 +156,9 @@ function triggerActionLoop() {
       setTimeout(triggerActionLoop, Math.floor(Math.random() * 7000) + 4000);
       doAction();
     } else {
-      cycle++;
-      console.log("Current Cycle : " + cycle);
       idler();
+      console.log("Current Cycle : " + cycle);
+      cycle++;
       actions = howManyTimes() + 5;
     }
   }
@@ -272,7 +275,7 @@ $(document).on("click", '#container > gn-left > div > div.menu > section:nth-chi
         if ($.trim($('#page-fraud-attempt > div.content-general > div > button.primary.attempt > div').text()) != 0) {
           if ($.trim($('#page-fraud-attempt > div.content-general > div > button.primary.attempt > div').text()) < "79% Chance") {
             $('#page-fraud-attempt > div.content-general > div > button.secondary.plan')[0].click();
-          } else if ($.trim($('#page-fraud-attempt > div.content-general > div > button.primary.attempt > div').text()) > "79% Chance") {
+          } else if ($.trim($('#page-fraud-attempt > div.content-general > div > button.primary.attempt > div').text()) >= "79% Chance") {
             $('#page-fraud-attempt > div.content-general > div > button.primary.attempt')[0].click();
           }
         }
