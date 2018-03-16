@@ -1,0 +1,15 @@
+[16/05]
+- Bullets: Changed so if you have the timer, it will wait until timer is up before clicking on the page again. [BULELT VERSION ONLY]
+- Bullets: When you buy bullets it will wait for the timer. [BULELT VERSION ONLY] (these 2 changes ARE different, as we handled the buying in a strange way, this is better)
+- Bullets: Increased the timer on when the click event will trigger. Sometimes if the site lags it would cause our event to send info back that we shoudn't buy bullets. Will keep messing with this timer.
+
+[15/05]
+- Added addtional bullet buying checks
+- Increased time on Police Chase loop by a little (100 ms)
+- Reduced Idler times to every 100 cycles instead of 120. (Will now stop at 400 cycles). May reduce it further after more testing.
+- BULLET Version: Will click bullets more frequently if it's time (Some specific conditions, but mainly increased how fast it will check if we have a "countdown timer")
+- Added addtional check on Bomb Defuse to fix error 400s.
+- Recoded the Idler function. Will check how long you've been online every 30 cycles, if above 16 hours it'll take a long break (few hours). every 30 cycles takes a 10-15 min break.
+- Added a 2nd bullet click for bullets (sometimes Bullet Store click event isn't been triggered when you first start script. Very specific circumstances (not sure we even need it, may remove it)
+- Fixed a rare bug with fraud (silly error)
+- Bullets: Changed so if you have the timer, it will wait until timer is up before clicking on the page again. [BULELT VERSION ONLY]
