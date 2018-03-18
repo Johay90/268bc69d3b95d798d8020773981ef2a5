@@ -1,7 +1,5 @@
 var inJail;
 var cycle = 0;
-var stopforBullets = 0;
-var buyBullets;
 
 setTimeout(function() {
   if ($('#page-index > div > div.external').length != 1) {
@@ -155,32 +153,18 @@ setTimeout(function() {
       return f;
     }
 
-    function bulletCheck() {
-      var myMoney = $('#header-stats > a.money.indented > div.inner > table > tbody > tr:nth-child(1) > td:nth-child(2)').attr('title').substring(1);
-      myMoney = myMoney.replace(/,/g, "");
-      var time = $('#header-stats > div.clock.indented > div > p:nth-child(2)').text();
-      if ((parseInt(time.substring(3, 5)) >= 56) && (parseInt(myMoney) > 50000)) {
-        stopforBullets = 1;
-        setTimeout(function() {
-          $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-        }, Math.floor(Math.random() * 1000) + 400);
-      }
-    }
-
     actions = howManyTimes() + 5;
 
     var i = 1;
 
     function myLoop() {
       setTimeout(function() {
-        if (stopforBullets == 0) {
           if (cycle < 20) {
             doAction();
             actions--;
-            bulletCheck();
-            if (i < actions && stopforBullets == 0) {
+            if (i < actions) {
               myLoop();
-            } else if (stopforBullets == 0) {
+            } else {
               actions = howManyTimes() + 5;
               cycle++;
               console.log("Next Cycle: " + cycle);
@@ -190,11 +174,9 @@ setTimeout(function() {
             idler();
             setTimeout(myLoop, Math.floor(Math.random() * 60000) + 30000);
           }
-        }
       }, Math.floor(Math.random() * 7000) + 4000);
     }
 
-    bulletCheck();
     myLoop();
 
     $(document).on("click", '#container > gn-left > div > div.menu > section:nth-child(2) > a.small.highlight', function() {
@@ -307,63 +289,6 @@ setTimeout(function() {
           }
         }
       }, Math.floor(Math.random() * 3100) + 1500);
-    });
-
-    function triggerBuyBullets() {
-      var check = parseInt($('#page-bullets-purchase > div.content-general > div.box-outline.store > div.stock > div').attr('title').replace(/,/g, ''));
-      if ($("page-bullets-purchase").attr('class') != "page-content area-bullets disabled") {
-        stopforBullets = 1;
-        $('#page-bullets-purchase > div.content-general > div.purchase > div.box-outline.purchase-form > form > button').trigger("click");
-      }
-    }
-
-    $(document).on("click", '#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets', function() {
-      setTimeout(function() {
-        if ($('#content > gn-page > div > div > div.page-timer > div > div.countdown').length == 1) {
-          console.log("Waiting for buy timer");
-          var autoReloadBullets = setInterval(function() {
-            if ($('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets.highlight').length == 1) {
-              $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-              clearInterval(autoReloadBullets);
-            }
-          }, Math.floor(Math.random() * 1000) + 500);
-        } else {
-          var myMoney = $('#header-stats > a.money.indented > div.inner > table > tbody > tr:nth-child(1) > td:nth-child(2)').attr('title').substring(1);
-          myMoney = myMoney.replace(/,/g, "");
-          var time = $('#header-stats > div.clock.indented > div > p:nth-child(2)').text();
-          var check = parseInt($('#page-bullets-purchase > div.content-general > div.box-outline.store > div.stock > div').attr('title').replace(/,/g, ''));
-          if ((parseInt(time.substring(3, 5)) >= 56) && (parseInt(myMoney) > 50000)) {
-            console.log("Waiting until the hour mark.");
-            stopforBullets = 1;
-            var newBullets = setInterval(function() {
-              var time2 = $('#header-stats > div.clock.indented > div > p:nth-child(2)').text();
-              if (parseInt(time2.substring(3, 5)) < 56) {
-                $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-                clearInterval(newBullets);
-              }
-            }, Math.floor(Math.random() * 1500) + 700);
-          } else if ((check > 50) && (parseInt(myMoney) > 50000)) {
-            console.log("Buying bullets & Waiting for timer.");
-            stopforBullets = 1;
-            triggerBuyBullets();
-            var autoReloadBullets = setInterval(function() {
-              if ($('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets.highlight').length == 1) {
-                $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-                clearInterval(autoReloadBullets);
-              }
-            }, Math.floor(Math.random() * 1000) + 500);
-          } else if ((parseInt(time.substring(3, 5)) <= 02) && (parseInt(myMoney) > 50000)) { //in very specific circumstances it could bugout, so here we just make sure it checks for new bullets
-            stopforBullets = 1;
-            setTimeout(function() {
-              $('#container > gn-left > div > div.menu > section:nth-child(3) > a.bullets')[0].click();
-            }, Math.floor(Math.random() * 20000) + 10000);
-          } else {
-            console.log("Can't buy bullets, either no stock");
-            stopforBullets = 0;
-            myLoop();
-          }
-        }
-      }, Math.floor(Math.random() * 2000) + 700);
     });
 
     $(document).on("click", '#container > gn-left > div > div.menu > section:nth-child(3) > a.prison.highlight', function() {
