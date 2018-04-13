@@ -1,69 +1,33 @@
-NON BULLET VERSION: https://raw.githubusercontent.com/Johay90/268bc69d3b95d798d8020773981ef2a5/master/no_f.js
-BULLET BUYING VERSION: https://raw.githubusercontent.com/Johay90/268bc69d3b95d798d8020773981ef2a5/master/f.js
+- Added a pause function [It stops the "automation part" but clicking on for example GTA it'll still do the GTA. The function is basically for pausing the automation.
 
-INSTRUCTIONS -- USE CHROME
-1) Install tampermonkey
-2) Click on the Tampermonkey icon -> Dashboard
-3) Click on the "+" tab
-4) Delete ALL the code here, and paste the code from one of the above link.
-5) Click "Save" (it's the 2nd button at the top).
-6) Open GN, click the tampermonkey icon and click the switch next to "GN script" when it's green, it's on.
-7) Refresh the page (click f5)
+- Crusher bug fixes
 
-IF you want to play in a tab while script is running, you will need to open up a new tab - turn off the GN script and refresh the page. OF course next time to logback in you will want to make sure the script is turned on.
+- Added how we bank our money when not buying bullets (simplified it)
 
+- Added hide button. This will only be in effect until a refresh.
 
+- Fixed a bug with the GUI. It would create a new element every second. This should help browser performance.
 
+- Added copy bullet button. This is mainly for me so I have a lot of dupes and need to keep track of bullet counts.
 
+- Car crusher is now at a random time of the hour (between 31-56mins). This value is chosen when the page is refreshed.
 
+- Scratch card added.
 
+- Backend changes to crusher, nothing you’ll notice
 
+- Added upgrade garage and upgrade crusher
 
+- Bulk Buy support on bullets page.
 
+- Added so it buys bulk buy if you have 6 credits on page refresh.
 
+- Added Life insurance.
 
+- Automated Auctions added
 
+- Fixed a bug with crusher where it would bug out if you had tuned cars at the top (basically had a wrong condition in our crusher loop, before we looped the "amount of cars you can crush" while we should be looping all the cars). Very simple mistake by me.
 
+- Lots of other bug fixes
 
-
-
-
-
-CHANGELOG
-
-[18/05]
-- Auto Login Removed
-
-[17/05]
-- Idler: Added a check to find the word "Hours" when we check how long we've been online. If it can't find it, it'll exit the function (as you've been online less then an 2 hours)
-- Police Chase: After a while, setInterval can start sending error 400s, hopefully deployed a fix. Will keep an eye on it (Nothing to worry about, just internal errors doens't effect script regardless). CONFIRMED FIX, still need to keep an eye if this fix has any performance related issues.
-- NEW: Auto Login Added
-- Changed how we calculate values on fraud. Sometimes it randomly does the fraud when we're not ready to attempt it (to low %). Trying to get to bottom of this.
-
-[16/05]
-- NEW: Added Jail Breaking
-- Cycle: Will now run each cycle much faster (10-30 seconds after last cycle ends). Don't worry we check each actions isn't on cooldown before clicking anything; this just means script will check if we can do "anything" faster.
-- Cycle: Few bugfixes pushed. Would freeze up the browser (Was in a constant loop).
-- RECODE: Recoded the entire main loop, to hopefully get to the bottom of our constant idler looping. Very annoying issue. Got rid of most setIntervals (silly design choice, very annoying to keep track of/lots of bugs)
-- Logout: Added a function to get around the dialog box when clicking logout.
-
-
----BULLET VERSION ONLY---
-- Bullets: Changed so if you have the timer, it will wait until timer is up before clicking on the page again.
-- Bullets: When you buy bullets it will wait for the timer. [BULELT VERSION ONLY] (these 2 changes ARE different, as we handled the buying in a strange way, this is better)
-- Bullets: Increased the timer on when the click event will trigger. Sometimes if the site lags it would cause our event to send info back that we shouldn't buy bullets. Will keep messing with this timer. If it becomes an ongoing issue I can change how we detect this, but it's quite a bit of work so would rather avoid it.
-- Bullets: pushed another update on how we handle waiting and buying. Backend stuff, no need to explain here
-
-[15/05]
-- Added additional bullet buying checks
-- Police Chase: Increased time on Police Chase loop by a little (100 ms)
-- Bomb Defuse: Added additional check on Bomb Defuse to fix error 400s.
-- Fraud: Fixed a rare bug with fraud (silly error)
-- Idler: Recoded the Idler function. Will check how long you've been online every 30 cycles, if above 16 hours it'll take a long break (few hours). every 30 cycles takes a 10-15 min break.
-- Idler: Reduced Idler times to every 100 cycles instead of 120. (Will now stop at 400 cycles). May reduce it further after more testing.
-
----BULLET VERSION ONLY---
-- Bullets: Changed so if you have the timer, it will wait until timer is up before clicking on the page again. [BULELT VERSION ONLY]
-- Bullets: Added a 2nd bullet click for bullets (sometimes Bullet Store click event isn't been triggered when you first start script. Very specific circumstances (not sure we even need it, may remove it)
-- Bullets: Will click bullets more frequently if it's time (Some specific conditions, but mainly increased how fast it will check if we have a "countdown timer")
-- Bullets: Added additional bullet buying checks
+- GUI with lots of config options
